@@ -71,4 +71,13 @@ The updated design is checked in as mux_bugfree.v
 
 ## Verification Strategy
 
+The MUX design is simple so I directly started with checking Verilog Code and finding whether there is any design bug and gone through whole code from start to end each line, since the bug can be a minute bug. For Example in  
+```
+always @(sel or inp0 or ... )
+```
+there can be any parameter missing or instead of "or", "and" could be written, etc.,
+While analyzing this I found bugs in the design and developed testbench according to it.
+
 ## Is the verification complete ?
+
+Yes, to confirm it I tested it for all possible testcases and all testcases were passed.
