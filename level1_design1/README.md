@@ -59,5 +59,6 @@ Based on the above test input and analysing the design, we see the following
   end
 ```
 For the MUX design, the logic of select in case for inp12 should be ``5'b01100`` instead of ``5'b01101`` as in the design code.
+
 For the MUX design, the logic of select in case for inp30 should be written as ``5'b11110: out = inp30;``.
 
