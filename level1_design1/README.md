@@ -80,4 +80,4 @@ While analyzing this I found bugs in the design and developed testbench accordin
 
 ## Is the verification complete ?
 
-Yes, to confirm it I tested it for all possible testcases and all testcases were passed.
+Yes, to confirm it I tested it for some possible testcases and all testcases were passed.
