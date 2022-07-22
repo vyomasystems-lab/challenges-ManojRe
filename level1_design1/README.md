@@ -62,3 +62,13 @@ For the MUX design, the logic of select in case for inp12 should be ``5'b01100``
 
 For the MUX design, the logic of select in case for inp30 should be written as ``5'b11110: out = inp30;``.
 
+## Design Fix
+Updating the design and re-running the test makes the test pass.
+
+![](https://i.imgur.com/5XbL1ZH.png)
+
+The updated design is checked in as adder_fix.v
+
+## Verification Strategy
+
+## Is the verification complete ?
