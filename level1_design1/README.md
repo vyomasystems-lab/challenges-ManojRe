@@ -67,7 +67,7 @@ Updating the design and re-running the test makes the test pass.
 
 ![LVL1des1_bugfree](https://user-images.githubusercontent.com/86054925/180419974-239a53eb-cdcc-4618-99e8-10239ed3bcee.PNG)
 
-The updated design is checked in as adder_fix.v
+The updated design is checked in as mux_bugfree.v
 
 ## Verification Strategy
 
