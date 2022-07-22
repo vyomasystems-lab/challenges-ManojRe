@@ -65,7 +65,7 @@ For the MUX design, the logic of select in case for inp30 should be written as `
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
-![](https://i.imgur.com/5XbL1ZH.png)
+![LVL1des1_bugfree](https://user-images.githubusercontent.com/86054925/180419974-239a53eb-cdcc-4618-99e8-10239ed3bcee.PNG)
 
 The updated design is checked in as adder_fix.v
 
