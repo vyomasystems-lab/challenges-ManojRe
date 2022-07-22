@@ -5,7 +5,7 @@ from cocotb.triggers import Timer
 
 @cocotb.test()
 async def test_mux1(dut):
-    """Test for mux2"""
+    """Test for mux1"""
 
     cocotb.log.info('##### CTB: Develop your test here ########')
     Not_inp13 = 0
