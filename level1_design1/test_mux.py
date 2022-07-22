@@ -26,10 +26,10 @@ async def test_mux2(dut):
 
     cocotb.log.info('##### CTB: Develop your test here ########')
     SEL = 30
-    INP30 = 1
+    INP30 = 2
     # input driving
     dut.inp30.value = INP30
     dut.sel.value = SEL
     await Timer(2, units='ns')
     dut._log.info(f'Sel={SEL:05} Inp30={INP30:05} Output={INP30:05} DUT={int(dut.out.value):05}')
-    assert int(dut.out.value) == INP30, f"Multiplexer selection is incorrect: {int(dut.out.value)} != 1.\nThis Bug Ocurred Because in Verilog code, Mux Select Case for inp30 is not written, so output is 0 which is default \ncase."
+    assert int(dut.out.value) == INP30, f"Multiplexer selection is incorrect: {int(dut.out.value)} != 2.\nThis Bug Ocurred Because in Verilog code, Mux Select Case for inp30 is not written, so output is 0 which is default \ncase."
