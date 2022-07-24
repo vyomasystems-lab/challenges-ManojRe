@@ -16,24 +16,25 @@ and sequence of input passed like 110101..., etc.,
 The assert statement is used for comparing the Sequence Detector output to the expected value.
 
 The following error is seen:
+
 Bug1:
 ```
 assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1..."
                      AssertionError: Seq detector is incorrect: 0 != 1.
-                     This Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1 'if' part should be SEQ_1 itself not IDEL, Because here we consider overlapping i.e. for I/P 11011.
+                     This Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1 'if' part should be SEQ_1 itself not IDLE, Because here we consider overlapping i.e. for I/P 11011.
 ```
 Bug2:
 ```
 assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1..."
                      AssertionError: Seq detector is incorrect: 0 != 1.
-                     This Bug Ocurred Because in Verilog code, Seq detect Select Case of SEQ_101 'else' part should be SEQ_10 not IDEL, Because here we consider overlapping i.e. for I/P 101011.
+                     This Bug Ocurred Because in Verilog code, Seq detect Select Case of SEQ_101 'else' part should be SEQ_10 not IDLE, Because here we consider overlapping i.e. for I/P 101011.
                      
 ```
 Bug3:
 ```
 assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1..."
                      AssertionError: Seq detector is incorrect: 0 != 1.
-                     This Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1011 should be SEQ_1 not IDEL, Because here we consider overlapping i.e. for I/P 10111011.
+                     This Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1011 should be SEQ_1 not IDLE, Because here we consider overlapping i.e. for I/P 10111011.
 ```
 Bug4:
 ```
@@ -44,38 +45,67 @@ assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value
 ```
 
 ## Test Scenario **(Important)**
-- Test Inputs: sel=13 inp12=0 inp13=1
+TEST1:
+- Test Inputs: inp_bit = 11011
 - Expected Output: out=1
 - Observed Output in the DUT dut.out=0
 
-Output mismatches for the above inputs proving that there is a design bug
+TEST2:
+- Test Inputs: inp_bit = 1101011
+- Expected Output: out=1
+- Observed Output in the DUT dut.out=0
+
+TEST3:
+- Test Inputs: inp_bit = 110111011
+- Expected Output: out=1
+- Observed Output in the DUT dut.out=0
+
+TEST4:
+- Test Inputs: inp_bit = 11011011
+- Expected Output: out=1
+- Observed Output in the DUT dut.out=0
+
+Expected Output is not seen for the above inputs proving that there is a design bug
 
 ## Design Bug
 Based on the above test input and analysing the design, we see the following
 
 ```
- always @(sel or inp0  or inp1 or  inp2 or inp3 or inp4 or inp5 or inp6 or
-            inp7 or inp8 or inp9 or inp10 or inp11 or inp12 or inp13 or 
-            inp14 or inp15 or inp16 or inp17 or inp18 or inp19 or inp20 or
-            inp21 or inp22 or inp23 or inp24 or inp25 or inp26 or inp27 or 
-            inp28 or inp29 or inp30 )
-
+ always @(inp_bit or current_state)
   begin
-    case(sel)
-      5'b00000: out = inp0;
+    case(current_state)
+      IDLE:
+      begin
+        if(inp_bit == 1)
+          next_state = SEQ_1;
+        else
+          next_state = IDLE;
+      end
+      SEQ_1:
+      begin
+        if(inp_bit == 1)
+          next_state = IDLE;   ====> BUG //next_state should be SEQ_1
       .
       .
-      5'b01101: out = inp12; ====> BUG //here it should be 1100 for 12
       .
-      .
-      5'b11101: out = inp29;  ====> BUG // after this condition 31st i.e inp30 is not written
-      default: out = 0;
-    endcase             
+      SEQ_101:
+      begin
+        if(inp_bit == 1)
+          next_state = SEQ_1011;
+        else
+          next_state = IDLE; ====> BUG //next_state should be SEQ_10
+      end
+      SEQ_1011:
+      begin
+        next_state = IDLE; ====> BUG //if inp_bit = 1, then next_state should be SEQ_1, else SEQ_10
+      end
+    endcase
   end
 ```
-For the MUX design, the logic of select in case for inp12 should be ``5'b01100`` instead of ``5'b01101`` as in the design code.
+For the Sequence Detector design:
+the logic of SEQ_1 in case for inp_bit = 1, should be ``SEQ_1`` instead of ``IDLE`` as in the design code.
 
-For the MUX design, the logic of select in case for inp30 should be written as ``5'b11110: out = inp30;``.
+For the Sequence Detector design, the logic of select in case for inp30 should be written as ``5'b11110: out = inp30;``.
 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.

@@ -43,7 +43,7 @@ async def test_seq_bug1(dut):
     
     await Timer(2, units='ns')
     dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} next_sta={dut.next_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
-    assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1.\nThis Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1 'if' part should be SEQ_1 itself not IDEL, Because here we consider overlapping i.e. for I/P 11011."
+    assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1.\nThis Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1 'if' part should be SEQ_1 itself not IDLE, Because here we consider overlapping i.e. for I/P 11011."
 
 @cocotb.test()
 async def test_seq_bug2(dut):
@@ -87,7 +87,7 @@ async def test_seq_bug2(dut):
     
     await Timer(2, units='ns')
     dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} next_sta={dut.next_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
-    assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1.\nThis Bug Ocurred Because in Verilog code, Seq detect Select Case of SEQ_101 'else' part should be SEQ_10 not IDEL, Because here we consider overlapping i.e. for I/P 101011."
+    assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1.\nThis Bug Ocurred Because in Verilog code, Seq detect Select Case of SEQ_101 'else' part should be SEQ_10 not IDLE, Because here we consider overlapping i.e. for I/P 101011."
 
 @cocotb.test()
 async def test_seq_bug3(dut):
@@ -131,7 +131,7 @@ async def test_seq_bug3(dut):
     
     await Timer(2, units='ns')
     dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} next_sta={dut.next_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
-    assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1.\nThis Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1011 should be SEQ_1 not IDEL, Because here we consider overlapping i.e. for I/P 10111011."
+    assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1.\nThis Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1011 should be SEQ_1 not IDLE, Because here we consider overlapping i.e. for I/P 10111011."
 
 @cocotb.test()
 async def test_seq_bug4(dut):
