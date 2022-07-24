@@ -109,14 +109,23 @@ The logic of SEQ_101 in case for inp_bit=0, i.e. else part next_state should be 
 The logic of SEQ_1011 in case if inp_bit=1, next_state should be ``SEQ_1`` else ``SEQ_10``.
 
 ## Design Fix
-Updating the design and re-running the test makes the test pass.
+Updating the design One-by-One and re-running the test makes the test pass.
+After Fixing SEQ_1 Bug: 
+
+After Fixing SEQ_101 Bug: 
+
+After Fixing SEQ_1011 Bug Part_1: 
+
+After Fixing SEQ_1011 Bug Part_2: 
 
 
-The updated design is checked in as seq_detect_1011_bugfree.v
+The fully updated design is checked in as seq_detect_1011_bugfree.v
 
 ## Verification Strategy
 
-The MUX design is simple so I directly started with checking Verilog Code and finding whether there is any design bug and gone through whole code from start to end each line, since the bug can be a minute bug. For Example in  
+
+
+The Seq_detect_1011 design is simple so I directly started with checking Verilog Code and finding whether there is any design bug and gone through whole code from start to end each line, since the bug can be a minute bug. For Example in  
 ```
 always @(sel or inp0 or ... )
 ```
