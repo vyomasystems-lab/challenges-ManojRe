@@ -7,11 +7,16 @@
 
 The test drives inputs to the Design Under Test (mux module here) which takes in 5-bit input *sel* to select input from inp0 to inp 30 and gives 2-bit output *out*.
 
-The values are assigned to the input port using 
+Case1: The values are assigned to the input port using 
 ```
 dut.inp13.value = 1 
 dut.inp12.value = 0
 dut.sel.value = 13
+```
+Case2: The values are assigned to the input port using 
+```
+dut.inp30.value = 2
+dut.sel.value = 30
 ```
 
 The assert statement is used for comparing the MUX's output to the expected value.
@@ -29,8 +34,13 @@ assert int(dut.out.value) == INP30, f"Multiplexer selection is incorrect: {int(d
                      
 ```
 ## Test Scenario **(Important)**
+TEST1:
 - Test Inputs: sel=13 inp12=0 inp13=1
 - Expected Output: out=1
+- Observed Output in the DUT dut.out=0
+TEST2:
+- Test Inputs: sel=30 inp30=2
+- Expected Output: out=2
 - Observed Output in the DUT dut.out=0
 
 Output mismatches for the above inputs proving that there is a design bug

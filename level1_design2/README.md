@@ -11,22 +11,38 @@ for i in range(2):
         dut.inp_bit.value = 1
         await RisingEdge(dut.clk)
 ```
-and sequence of input passed like 110101...
+and sequence of input passed like 110101..., etc.,
 
 The assert statement is used for comparing the Sequence Detector output to the expected value.
 
 The following error is seen:
+Bug1:
 ```
-assert int(dut.out.value) == INP13, f"Multiplexer selection is incorrect: {int(dut.out.value)} != 1."
-                     AssertionError: Multiplexer selection is incorrect: 0 != 1.
-                     This Bug Ocurred Because in Verilog code, Mux Select Case for inp12 and inp13 is same which is 13 or b01101.
+assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1..."
+                     AssertionError: Seq detector is incorrect: 0 != 1.
+                     This Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1 'if' part should be SEQ_1 itself not IDEL, Because here we consider overlapping i.e. for I/P 11011.
 ```
+Bug2:
 ```
-assert int(dut.out.value) == INP30, f"Multiplexer selection is incorrect: {int(dut.out.value)} != 2."
-                     AssertionError: Multiplexer selection is incorrect: 0 != 2.
-                     This Bug Ocurred Because in Verilog code, Mux Select Case for inp30 is not written, so output is 0 which is default case.
+assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1..."
+                     AssertionError: Seq detector is incorrect: 0 != 1.
+                     This Bug Ocurred Because in Verilog code, Seq detect Select Case of SEQ_101 'else' part should be SEQ_10 not IDEL, Because here we consider overlapping i.e. for I/P 101011.
                      
 ```
+Bug3:
+```
+assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1..."
+                     AssertionError: Seq detector is incorrect: 0 != 1.
+                     This Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1011 should be SEQ_1 not IDEL, Because here we consider overlapping i.e. for I/P 10111011.
+```
+Bug4:
+```
+assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {dut.seq_seen.value} != 1..."
+                     AssertionError: Seq detector is incorrect: 0 != 1.
+                     This Bug Ocurred Because in Verilog code, Seq_detect Select Case of SEQ_1011 should have 'if and else' case and if i/p is '1' then next_state is SEQ_1 else next_state is SEQ_10, Because here we consider overlapping 
+                     i.e. for I/P 1011011.
+```
+
 ## Test Scenario **(Important)**
 - Test Inputs: sel=13 inp12=0 inp13=1
 - Expected Output: out=1
