@@ -103,15 +103,16 @@ Based on the above test input and analysing the design, we see the following
   end
 ```
 For the Sequence Detector design:
-the logic of SEQ_1 in case for inp_bit = 1, should be ``SEQ_1`` instead of ``IDLE`` as in the design code.
 
-For the Sequence Detector design, the logic of select in case for inp30 should be written as ``5'b11110: out = inp30;``.
+The logic of SEQ_1 in case for inp_bit = 1, next_state should be ``SEQ_1`` instead of ``IDLE`` as in the design code.
+The logic of SEQ_101 in case for inp_bit=0, i.e. else part next_state should be ``SEQ_10`` instead of ``IDLE``
+The logic of SEQ_1011 in case if inp_bit=1, next_state should be ``SEQ_1`` else ``SEQ_10``.
 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
 
-The updated design is checked in as mux_bugfree.v
+The updated design is checked in as seq_detect_1011_bugfree.v
 
 ## Verification Strategy
 
