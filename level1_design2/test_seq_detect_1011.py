@@ -8,7 +8,7 @@ from pathlib import Path
 
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import RisingEdge, FallingEdge
+from cocotb.triggers import RisingEdge, FallingEdge, Timer
 
 @cocotb.test()
 async def test_seq_bug1(dut):
@@ -24,3 +24,62 @@ async def test_seq_bug1(dut):
     await FallingEdge(dut.clk)
 
     cocotb.log.info('#### CTB: Develop your test here! ######')
+    
+    # input driving 
+    for i in range(1):
+        dut.inp_bit.value = 1
+        await RisingEdge(dut.clk)
+        dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} next_sta={dut.next_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+
+    for i in range(1):
+        dut.inp_bit.value = 0
+        await RisingEdge(dut.clk)
+        dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} next_sta={dut.next_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+
+    for i in range(2):
+        dut.inp_bit.value = 1
+        await RisingEdge(dut.clk)
+        dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} next_sta={dut.next_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+    
+    await Timer(2, units='ns')
+    dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} next_sta={dut.next_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+    assert dut.seq_seen.value == 1, f"Seq detector is incorrect: {int(dut.seq_seen.value)} != 1."
+
+
+'''
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 0
+    #await Timer(2, units='ns')
+
+    dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    #await Timer(2, units='ns')
+
+    dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    #await Timer(2, units='ns')
+
+    dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+    
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 0
+    await Timer(2, units='ns')
+    #await FallingEdge(dut.clk)
+    dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} next_sta={dut.next_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+   
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    
+    dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+    
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    await RisingEdge(dut.clk)
+    dut._log.info(f'Inp={dut.inp_bit.value} current_sta={dut.current_state.value} clk={int(dut.clk)} DUT={dut.seq_seen.value}')
+    dut.inp_bit.value = 0
+
+    #Output={1:05}\nThis Bug Ocurred Because in Verilog code, Mux Select Case for inp12 and inp13 is same which is 13 or b01101.
+    
+    '''
