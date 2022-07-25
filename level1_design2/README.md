@@ -1,5 +1,9 @@
  # 1011_Sequence Detector  Design Verification
     There are Four bugs in this Sequence Detector Design
+    ![LvL1_Des2_1](https://user-images.githubusercontent.com/86054925/180816206-bd3b23b9-63cb-4cdb-b6b5-5eb190397335.PNG)
+    ![LvL1_Des2_2](https://user-images.githubusercontent.com/86054925/180816229-7a834a42-2e27-4f8c-829c-d586d4b64998.PNG)
+    ![LvL1_Des2_3](https://user-images.githubusercontent.com/86054925/180816274-d787b03b-133a-49a5-a9b4-5b31d7c29d8b.PNG)
+
 
 ## Verification Environment
 
