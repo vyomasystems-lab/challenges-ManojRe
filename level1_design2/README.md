@@ -127,15 +127,8 @@ The fully updated design is checked in as seq_detect_1011_bugfree.v
 
 ## Verification Strategy
 
-
-
-The Seq_detect_1011 design is simple so I directly started with checking Verilog Code and finding whether there is any design bug and gone through whole code from start to end each line, since the bug can be a minute bug. For Example in  
-```
-always @(sel or inp0 or ... )
-```
-there can be any parameter missing or instead of "or", "and" could be written, etc.,
-While analyzing this I found bugs in the design and developed testbench according to it.
+The Seq_detect_1011 design is clock based so first i started with checking Verilog Code and finding whether there is any design bug and gone through whole code from start to end, while making test cases I got problems when I wanted to give input as ``11011`` in testbench code, i got some different Input like ``11001``, so i started checking it and understood that the time and trigger I have given were wrong caz of some internal time difference in this systen. And finally gave different combinations of input with this I got total 4 bugs and tried to solve all 4 bugs and saved in ``seq_detect_1011_bugfree.v`` file.
 
 ## Is the verification complete ?
 
-Yes, to confirm it I tested it for some possible testcases and all testcases were passed.
+Yes, after giving different input combinations for testing and running all 4 testcases with corrected code they all passed.
