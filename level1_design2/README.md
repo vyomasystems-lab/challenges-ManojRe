@@ -114,13 +114,18 @@ The logic of SEQ_1011 in case if inp_bit=1, next_state should be ``SEQ_1`` else 
 
 ## Design Fix
 Updating the design One-by-One and re-running the test makes the test pass.
+
 After Fixing SEQ_1 Bug: 
+![LvL1_Des2_P1](https://user-images.githubusercontent.com/86054925/180838438-72da21d1-1ae0-4681-91ec-421ac1f99a13.PNG)
 
 After Fixing SEQ_101 Bug: 
+![LvL1_Des2_P2](https://user-images.githubusercontent.com/86054925/180838455-10205acc-e9bd-4501-99df-9de3f45b7145.PNG)
 
 After Fixing SEQ_1011 Bug Part_1: 
+![LvL1_Des2_P3](https://user-images.githubusercontent.com/86054925/180838466-ffc57df3-ec82-4aee-81bb-109157262593.PNG)
 
 After Fixing SEQ_1011 Bug Part_2: 
+![LvL1_Des2_P4](https://user-images.githubusercontent.com/86054925/180838476-27751eda-7ea5-4582-ad08-35c5e015e719.PNG)
 
 
 The fully updated design is checked in as seq_detect_1011_bugfree.v
