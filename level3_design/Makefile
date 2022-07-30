@@ -1,13 +1,14 @@
+
 # See LICENSE.vyoma for details
 
 TOPLEVEL_LANG ?= verilog
 
 PWD=$(shell pwd)
 
-VERILOG_SOURCES = $(PWD)/               # provide your design path
+VERILOG_SOURCES = $(PWD)/seqdetea_buggy.v
 
-TOPLEVEL :=           # design file
-MODULE   :=     # test file
+TOPLEVEL := seqdetea       # design
+MODULE   := test_seqdetea     # test
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
