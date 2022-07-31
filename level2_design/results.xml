@@ -1,8 +1,0 @@
-<testsuites name="results">
-  <testsuite name="all" package="all">
-    <property name="random_seed" value="1659275751" />
-    <testcase name="run_test" classname="test_mkbitmanip" file="/workspace/vyomasystems-lab-challenges-ManojRe/level2_design/test_mkbitmanip.py" lineno="24" time="0.00509190559387207" sim_time_ns="0.012" ratio_time="2.3566815563983705">
-      <failure />
-    </testcase>
-  </testsuite>
-</testsuites>
