@@ -1,8 +1,0 @@
-<testsuites name="results">
-  <testsuite name="all" package="all">
-    <property name="random_seed" value="1659165816" />
-    <testcase name="test_seqdetea_bug" classname="test_seqdetea" file="/workspace/vyomasystems-lab-challenges-ManojRe/level3_design/test_seqdetea.py" lineno="10" time="0.003912448883056641" sim_time_ns="110000.001" ratio_time="28115383.558458503">
-      <failure />
-    </testcase>
-  </testsuite>
-</testsuites>
